@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <title>Shopping Cart</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
+   <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+
+   <section>
+      <div class="container">
+         <div class="cart">
+            <div class="col-md-12 col-lg-10 mx-auto">
+               <div class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item">
+                        <img src="images/product-1.png" alt="">
+                        <h5>iPhone 11 128GB Black</h5>
+                     </div>
+                     
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button id="phoneQuantityMinusButton" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input type="text" id="phoneQuantityValue" class="form-control text-center" value="1">
+                           <button id="phoneQuantityPlusButton" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <h5>$<span id="phonePrice">1219</span></h5>
+                        <button id="phoneRemoveButton"><img src="images/remove.png" alt="" class="remove-item"></button>
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item mx-auto">
+                        <img src="images/product-2.png" alt="">
+                        <h5>iPhone 11 Silicone Case - Black</h5>
+                     </div>
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button id="caseQuantityMinusButton" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input type="text" id="caseQuantityValue" class="form-control text-center" value="1">
+                           <button id="caseQuantityPlusButton" class="btn btn-default"><i class="fas fa-plus"></i></button>
+
+                        </div>
+                        <h5>$<span id="casePrice">59</span></h5>
+                        <button id="caseRemoveButton"><img src="images/remove.png" alt="" class="remove-item"></button>
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+
+                     <div class="col-md-8">
+                        <h5>Subtotal: </h5>
+                        <h5>Tax:</h5>
+                        <h5>Total:</h5>
+                     </div>
+
+                     <div class="col-md-4 status">
+                        <h5>$<span id="subTotal">1278</span></h5>
+                        <h5>$<span id="tax">0</span></h5>
+                        <h5>$<span id="netTotal">1278</span></h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-12 pt-4 pb-4">
+                  <button type="button" id="checkOutButton" class="btn btn-success check-out">Check Out</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+   <script>
+      //Phone Quantity Minus Section
+      const quantityDeductionButton = document.getElementById("phoneQuantityMinusButton");
+      quantityDeductionButton.addEventListener("click", function(){
+         const quantityDeductPhone = document.getElementById("phoneQuantityValue").value;
+         if(quantityDeductPhone <= 0){
+            document.getElementById("phoneQuantityValue").innerText = 0;
+         }
+         else{
+            document.getElementById("phoneQuantityValue").value--;
+         }
+         const pricePhone = document.getElementById("phonePrice").innerText;
+         const netTotalPhone = parseFloat(pricePhone);
+
+         const totalMinusQuantityPrice = netTotalPhone - 1219;
+
+         const totalSub = document.getElementById("subTotal").innerText;
+         const convertTotalSub = parseFloat(totalSub);
+
+         const totalNet = document.getElementById("netTotal").innerText;
+         const convertTotalNet = parseFloat(totalNet);
+
+         if(pricePhone <= 0){
+            document.getElementById("phonePrice").innerText = 0;
+         }
+         else{ 
+            const inSubTotal = convertTotalSub - 1219;
+            const inNetTotal = convertTotalNet -1219;
+            document.getElementById("phonePrice").innerText = totalMinusQuantityPrice;
+            document.getElementById("subTotal").innerText = inSubTotal;
+            document.getElementById("netTotal").innerText = inNetTotal;
+         }
+      })
+      //Phone Quantity Add Section
+      const quantityAddButton = document.getElementById("phoneQuantityPlusButton");
+      quantityAddButton.addEventListener("click", function(){
+         const quantityAddPhone = document.getElementById("phoneQuantityValue").value++;
+
+         const phonePrice = document.getElementById("phonePrice").innerText;
+         const totalNetPrice = parseFloat(phonePrice);
+
+         const totalPlusQuantityPrice = totalNetPrice + 1219;
+
+         const afterAddTotal = document.getElementById("subTotal").innerText;
+         const convertAddTotal = parseFloat(afterAddTotal);
+
+         const afterAddNet = document.getElementById("netTotal").innerText;
+         const convertAfterAddNet = parseFloat(afterAddNet);
+
+         const addTotal = convertAddTotal + 1219;
+         const netTotal = convertAfterAddNet + 1219;
+         document.getElementById("phonePrice").innerText = totalPlusQuantityPrice;
+         document.getElementById("subTotal").innerText = addTotal;
+         document.getElementById("netTotal").innerText = netTotal;
+      })
+      //Case Quantity Minus Section
+      const quantityDeductionButtonCase = document.getElementById("caseQuantityMinusButton");
+      quantityDeductionButtonCase.addEventListener("click", function(){
+         const quantityDeductCase = document.getElementById("caseQuantityValue").value;
+         if(quantityDeductCase <= 0){
+            document.getElementById("caseQuantityValue").innerText = 0;
+         }
+         else{
+            document.getElementById("caseQuantityValue").value--;
+         }
+         const priceCase = document.getElementById("casePrice").innerText;
+         const netTotalCase = parseFloat(priceCase);
+
+         const totalQuantityPriceDeduct = netTotalCase - 59;
+
+         const totalSubCase = document.getElementById("subTotal").innerText;
+         const convertTotalSubCase = parseFloat(totalSubCase);
+
+         const totalNetCase = document.getElementById("netTotal").innerText;
+         const convertTotalNetCase = parseFloat(totalNetCase);
+         
+         if(priceCase <= 0){
+            document.getElementById("casePrice").innerText = 0;
+         }
+         else{ 
+            const invoiceSubTotal = convertTotalSubCase - 59;
+            const invoiceNetTotal = convertTotalNetCase -59;
+            document.getElementById("casePrice").innerText = totalQuantityPriceDeduct;
+            document.getElementById("subTotal").innerText = invoiceSubTotal;
+            document.getElementById("netTotal").innerText = invoiceNetTotal;
+         }
+      })
+      //Case Quantity Add Section
+      const quantityPlusButton = document.getElementById("caseQuantityPlusButton");
+      quantityPlusButton.addEventListener("click", function(){
+         const quantityAddCase = document.getElementById("caseQuantityValue").value++;
+
+         const priceCase = document.getElementById("casePrice").innerText;
+         const totalNetPriceCase = parseFloat(priceCase);
+
+         const totalPlusQuantityPriceCase = totalNetPriceCase + 59;
+
+         const afterAddCaseTotal = document.getElementById("subTotal").innerText;
+         const convertAddCaseTotal = parseFloat(afterAddCaseTotal);
+
+         const afterAddCaseNet = document.getElementById("netTotal").innerText;
+         const convertAfterAddCaseNet = parseFloat(afterAddCaseNet);
+
+         const addCaseTotal = convertAddCaseTotal + 59;
+         const netCaseTotal = convertAfterAddCaseNet + 59;
+         document.getElementById("casePrice").innerText = totalPlusQuantityPriceCase;
+         document.getElementById("subTotal").innerText = addCaseTotal;
+         document.getElementById("netTotal").innerText = netCaseTotal;
+      })
+   </script>
+</body>
+
+</html>
